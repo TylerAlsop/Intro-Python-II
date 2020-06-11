@@ -40,18 +40,21 @@ treasure.s_to = narrow
 #
 
 # Make a new player object that is currently in the 'outside' room.
+print(f"Welcome to the game! Your player will begin in the Outside. You can move North, East, South, and West by entering in 'n', 'e', 's', or 'w' respectively. Enter 'q' to Quit.")
 
 player = Player()
 player.current_room = outside
 
 # Write a loop that:
-#
+
 # * Prints the current room name
 print(player.current_room)
 
 # * Prints the current description (the textwrap module might be useful here).
 print(player.current_room.description)
+
 # * Waits for user input and decides what to do.
+choice = input("Please choose a direction to move: ")
 
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
