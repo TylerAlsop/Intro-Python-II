@@ -3,36 +3,37 @@ from player import Player
 
 # Declare all the rooms
 
-room = {
-    'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
 
-    'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+outside = Room("Outside", "North of you, the cave mount beckons.")
 
-    'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
+foyer = Room("Foyer", """Dim light filters in from the south. Dusty
+passages run north and east.""")
+
+overlook = Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""")
 
-    'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+narrow = Room("Narrow Passage", """The narrow passage bends here from west
+to north. The smell of gold permeates the air.""")
 
-    'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
+treasure = Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
-}
+earlier adventurers. The only exit is to the south.""")
+
+# plains = Room("Plains", """You're headed out to the middle of no-where!""")
 
 
 # Link rooms together
 
-room['outside'].n_to = room['foyer']
-room['foyer'].s_to = room['outside']
-room['foyer'].n_to = room['overlook']
-room['foyer'].e_to = room['narrow']
-room['overlook'].s_to = room['foyer']
-room['narrow'].w_to = room['foyer']
-room['narrow'].n_to = room['treasure']
-room['treasure'].s_to = room['narrow']
+outside.n_to = foyer
+# outside.s_to = plains
+foyer.s_to = outside
+foyer.n_to = overlook
+foyer.e_to = narrow
+overlook.s_to = foyer
+narrow.w_to = foyer
+narrow.n_to = treasure
+treasure.s_to = narrow
 
 #
 # Main
@@ -40,34 +41,50 @@ room['treasure'].s_to = room['narrow']
 
 # Make a new player object that is currently in the 'outside' room.
 
-player_01 = Player("Tyler", "Sorcerer", room)
-
+player = Player()
+player.current_room = outside
 
 # Write a loop that:
 #
 # * Prints the current room name
+print(player.current_room)
+
 # * Prints the current description (the textwrap module might be useful here).
+print(player.current_room.description)
 # * Waits for user input and decides what to do.
-#
+
 # If the user enters a cardinal direction, attempt to move to the room there.
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
 
-while True:
-    choice = input("Please choose a direction to move: ")
+# while True:
+#     print(player.current_room.name)
+#     print(f'The description of this room is: {player.current_room.description}')
 
-    try:
-        if (choice == 'q'):
-            break
-        if (choice == 'n'):
-            room.n_to
-        if (choice == 'e'):
-            room.e_to
-        if (choice == 's'):
-            room.s_to
-        if (choice == 'w'):
-            room.w_to
+#     choice = input("Please choose a direction to move: ")
 
-        except ValueError:
-            print(f"Please enter a valid input. ('n' for North, 'e' for East, 's' for South, 'w' for West, 'q' for Quit.")
+#     if choice == 'q':
+#         break
+
+#     if choice == 'n':
+#         if player.current_room.n_to is not None:
+#             player.current_room = player.current_room.n_to
+
+#     elif choice == 'e':
+#         if player.current_room.e_to is not None:
+#             player.current_room = player.current_room.e_to
+
+#     elif choice == 's':
+#         if player.current_room.s_to is not None:
+#             player.current_room = player.current_room.s_to
+
+#     elif choice == 'w':
+#         if player.current_room.w_to is not None:
+#             player.current_room = player.current_room.w_to
+    
+#*** ALTERNATIVE WAY ***#
+
+    # if choice in {'n', 'e', 's', 'w'}:
+    #     if hasattr(player.current_room, f'{choice}_to'):
+    #         player.current_room = getattr(player.current_room, f'{choice}_to')
