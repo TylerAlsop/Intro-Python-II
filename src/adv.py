@@ -46,48 +46,45 @@ player = Player()
 player.current_room = outside
 
 # Write a loop that:
+while True:
 
-# * Prints the current room name
-print(player.current_room)
+    # * Prints the current room name
+    print(player.current_room)
 
-# * Prints the current description (the textwrap module might be useful here).
-print(player.current_room.description)
+    # * Prints the current description (the textwrap module might be useful here).
+    print(player.current_room.description)
 
-# * Waits for user input and decides what to do.
-choice = input("Please choose a direction to move: ")
+    # * Waits for user input and decides what to do.
+    choice = input("Please choose a direction to move: ")
 
-# If the user enters a cardinal direction, attempt to move to the room there.
-# Print an error message if the movement isn't allowed.
-#
-# If the user enters "q", quit the game.
+    # If the user enters a cardinal direction, attempt to move to the room there.
+    # Print an error message if the movement isn't allowed.
+    if choice in {'n', 'e', 's', 'w'}:
+        if hasattr(player.current_room, f'{choice}_to'):
+            player.current_room = getattr(player.current_room, f'{choice}_to')
+        # else:
+        #     print("That direction is not an option at this time.")
 
-# while True:
-#     print(player.current_room.name)
-#     print(f'The description of this room is: {player.current_room.description}')
+    # If the user enters "q", quit the game.
 
-#     choice = input("Please choose a direction to move: ")
 
-#     if choice == 'q':
-#         break
 
-#     if choice == 'n':
-#         if player.current_room.n_to is not None:
-#             player.current_room = player.current_room.n_to
 
-#     elif choice == 'e':
-#         if player.current_room.e_to is not None:
-#             player.current_room = player.current_room.e_to
-
-#     elif choice == 's':
-#         if player.current_room.s_to is not None:
-#             player.current_room = player.current_room.s_to
-
-#     elif choice == 'w':
-#         if player.current_room.w_to is not None:
-#             player.current_room = player.current_room.w_to
-    
 #*** ALTERNATIVE WAY ***#
 
-    # if choice in {'n', 'e', 's', 'w'}:
-    #     if hasattr(player.current_room, f'{choice}_to'):
-    #         player.current_room = getattr(player.current_room, f'{choice}_to')
+
+# if choice == 'n':
+#     if player.current_room.n_to is not None:
+#         player.current_room = player.current_room.n_to
+
+# elif choice == 'e':
+#     if player.current_room.e_to is not None:
+#         player.current_room = player.current_room.e_to
+
+# elif choice == 's':
+#     if player.current_room.s_to is not None:
+#         player.current_room = player.current_room.s_to
+
+# elif choice == 'w':
+#     if player.current_room.w_to is not None:
+#         player.current_room = player.current_room.w_to
