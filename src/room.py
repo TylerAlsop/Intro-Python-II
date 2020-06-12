@@ -2,9 +2,10 @@
 # description attributes.
 
 class Room:
-    def __init__(self, name, description):
+    def __init__(self, name, description, items):
         self.name = name
         self.description = description
+        self.items = items
         self.n_to = None
         self.e_to = None
         self.s_to = None
@@ -21,6 +22,11 @@ class Room:
             output += f'The name of the room to the South is the: {self.s_to.name} \n'
         if self.w_to:
             output += f'The name of the room to the West is the: {self.w_to.name} \n'
+
+        # if self.items:
+        #     print(f'Items in this room: {self.items}')
+        # else:
+        #     print(f'There are no items in this room.')
 
         return output
 
