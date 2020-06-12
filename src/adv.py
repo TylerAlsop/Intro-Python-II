@@ -4,7 +4,7 @@ from player import Player
 # Declare all the rooms
 
 
-outside = Room("Outside", "North of you, the cave mount beckons.")
+outside = Room("Outside", "North of you, the mouth of the cave beckons.")
 
 foyer = Room("Foyer", """Dim light filters in from the south. Dusty
 passages run north and east.""")
@@ -59,11 +59,16 @@ while True:
 
     # If the user enters a cardinal direction, attempt to move to the room there.
     # Print an error message if the movement isn't allowed.
-    if choice in {'n', 'e', 's', 'w'}:
+    if (choice == 'q'):
+        print("You have quit the game. Thanks for playing.")
+        break
+
+    elif choice in {'n', 'e', 's', 'w'}:
         if hasattr(player.current_room, f'{choice}_to'):
             player.current_room = getattr(player.current_room, f'{choice}_to')
         # else:
         #     print("That direction is not an option at this time.")
+        #     continue
 
     # If the user enters "q", quit the game.
 
