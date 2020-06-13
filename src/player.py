@@ -6,12 +6,24 @@ class Player:
         self.inventory = inventory
 
     def pickup_item(self):
-        if self.current_room.items[0]:
-            self.inventory.append(self.current_room.items.pop())
+        if len(self.current_room.items) == 0:
+            print("There are no items to pickup.")
+        else:
+            if self.current_room.items[0]:
+                self.inventory.append(self.current_room.items.pop())
+
+
+    def drop_item(self):
+        if len(self.inventory) == 0:
+            print("There are no items in your inventory to drop.")
+        else:
+            if self.inventory[0]:
+                self.current_room.items.append(self.inventory.pop())
+
 
     def print_inventory(self):
         for item in self.inventory:
-            print(item)
+            print(f'  {item}')
 
     # def __str__(self):
     #     output = f"You am currently in the {self.current_room}."

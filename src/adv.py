@@ -5,6 +5,9 @@ from item import Item
 ########## ITEMS ##########
 torch = Item("Torch", "It lights the way.")
 knife = Item("Knife", "It cuts.")
+paper_airplane = Item("Paper Airplane", "It flies.")
+fly_swatter = Item("Fly Swatter", "It'll kill bugs.")
+nothing = Item("Nothing", "This is an item, but there really is nothing.")
 
 
 # Declare all the rooms
@@ -17,14 +20,14 @@ passages run north and east.""", [knife])
 
 overlook = Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm.""", [])
+the distance, but there is no way across the chasm.""", [paper_airplane])
 
 narrow = Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air.""", [])
+to north. The smell of gold permeates the air.""", [fly_swatter])
 
 treasure = Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south.""", [])
+earlier adventurers. The only exit is to the south.""", [nothing])
 
 # plains = Room("Plains", """You're headed out to the middle of no-where!""")
 
@@ -47,23 +50,28 @@ treasure.s_to = narrow
 #
 
 # Make a new player object that is currently in the 'outside' room.
-print(f"Welcome to the game! Your player will begin in the Outside. You can move North, East, South, and West by entering in 'n', 'e', 's', or 'w' respectively. Enter 'q' to Quit.")
+print(f"Welcome to the game! Your player will begin in the Outside. \nYou can move North, East, South, and West by entering in 'n', 'e', 's', or 'w' respectively. \nEnter 'p' to pickup an item and 'd' to drop it. \nEnter 'q' to Quit.")
 
 player = Player()
 player.current_room = outside
 
 # Write a loop that:
 while True:
-
+    print("###############################################################################")
     # * Prints the current room name
-    print(player.current_room)
 
     # * Prints the current description (the textwrap module might be useful here).
-    print(player.current_room.description)
-    print(f'Items in this room: {player.current_room.items}')
+    print(player.current_room)
+
+    print("Items in this room:")
+    if len(player.current_room.items) == 0:
+        print("NONE")
+    else:
+        for item in player.current_room.items:
+            print(f'  {item}')
 
     # * Waits for user input and decides what to do.
-    choice = input("Please choose a direction to move: ")
+    choice = input("Please enter a command: ")
 
     # If the user enters a cardinal direction, attempt to move to the room there.
     # Print an error message if the movement isn't allowed.
@@ -75,6 +83,12 @@ while True:
 
     elif choice == 'p':
         player.pickup_item()
+        print("Your Inventory:")
+        player.print_inventory()
+    
+    elif choice == 'd':
+        player.drop_item()
+        print("Your Inventory:")
         player.print_inventory()
 
     elif choice in {'n', 'e', 's', 'w'}:
@@ -84,6 +98,8 @@ while True:
         # if hasattr(player.current_room, f'{choice}_to'):
         else:
             print("\nThat direction is not an option at this time.\n")
+
+    
 
 
 

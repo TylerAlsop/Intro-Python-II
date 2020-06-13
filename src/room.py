@@ -30,6 +30,9 @@ class Room:
 
         return output
 
+    def print_items(self):
+        for item in self.items:
+            print(item)
 
     # def __repr__(self):
     #     # also returns a string which helps devs understand how your object is structured.
