@@ -71,34 +71,51 @@ while True:
             print(f'  {item}')
 
     # * Waits for user input and decides what to do.
-    choice = input("Please enter a command: ")
+    choice = input("Please enter a command: ").lower().split(" ")
 
     # If the user enters a cardinal direction, attempt to move to the room there.
     # Print an error message if the movement isn't allowed.
     # If the user enters "q", quit the game.
+    if len(choice) == 1:
+        choice = choice[0]
+        if (choice == 'q'):
+            print("You have quit the game. Thanks for playing.")
+            break
 
-    if (choice == 'q'):
-        print("You have quit the game. Thanks for playing.")
-        break
+        elif choice == 'p':
+            player.pickup_item()
+            print("Your Inventory:")
+            player.print_inventory()
+        
+        elif choice == 'd':
+            player.drop_item()
+            print("Your Inventory:")
+            player.print_inventory()
 
-    elif choice == 'p':
-        player.pickup_item()
-        print("Your Inventory:")
-        player.print_inventory()
-    
-    elif choice == 'd':
-        player.drop_item()
-        print("Your Inventory:")
-        player.print_inventory()
+        elif choice in {'n', 'e', 's', 'w'}:
+            print(getattr(player.current_room, f'{choice}_to'))
+            if getattr(player.current_room, f'{choice}_to') is not None:
+                player.current_room = getattr(player.current_room, f'{choice}_to')
+            # if hasattr(player.current_room, f'{choice}_to'):
+            else:
+                print("\nThat direction is not an option at this time.\n")
 
-    elif choice in {'n', 'e', 's', 'w'}:
-        print(getattr(player.current_room, f'{choice}_to'))
-        if getattr(player.current_room, f'{choice}_to') is not None:
-            player.current_room = getattr(player.current_room, f'{choice}_to')
-        # if hasattr(player.current_room, f'{choice}_to'):
-        else:
-            print("\nThat direction is not an option at this time.\n")
+    if len(choice) == 2:
+        command = choice[0]
+        chosen_item = choice[1]
 
+        if command == 'pickup':
+            for item in player.current_room.items:
+                if item.name == chosen_item:
+                    player.pickup_item()
+                    print("Your Inventory:")
+                    player.print_inventory()
+        if command == 'drop':
+            for item in player.current_room.items:
+                if item[0] == chosen_item:
+                    player.drop_item()
+                    print("Your Inventory:")
+                    player.print_inventory()
     
 
 
