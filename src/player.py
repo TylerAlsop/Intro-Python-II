@@ -22,6 +22,8 @@ class Player:
 
 
     def print_inventory(self):
+        if len(self.inventory) == 0:
+            print("NONE")
         for item in self.inventory:
             print(f'  {item}')
 

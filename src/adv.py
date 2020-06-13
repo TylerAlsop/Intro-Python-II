@@ -84,11 +84,13 @@ while True:
 
         elif choice == 'p':
             player.pickup_item()
+            item.on_take()
             print("Your Inventory:")
             player.print_inventory()
         
         elif choice == 'd':
             player.drop_item()
+            item.on_drop()
             print("Your Inventory:")
             player.print_inventory()
 
