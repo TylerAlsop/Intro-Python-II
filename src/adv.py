@@ -2,13 +2,18 @@ from room import Room
 from player import Player
 from item import Item
 
+########## ITEMS ##########
+torch = Item("Torch", "It lights the way.")
+knife = Item("Knife", "It cuts.")
+
+
 # Declare all the rooms
+########## ROOMS ##########
 
-
-outside = Room("Outside", "North of you, the mouth of the cave beckons.", [])
+outside = Room("Outside", "North of you, the mouth of the cave beckons.", [torch])
 
 foyer = Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east.""", [])
+passages run north and east.""", [knife])
 
 overlook = Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
@@ -22,6 +27,7 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south.""", [])
 
 # plains = Room("Plains", """You're headed out to the middle of no-where!""")
+
 
 
 # Link rooms together
@@ -61,18 +67,24 @@ while True:
 
     # If the user enters a cardinal direction, attempt to move to the room there.
     # Print an error message if the movement isn't allowed.
+    # If the user enters "q", quit the game.
+
     if (choice == 'q'):
         print("You have quit the game. Thanks for playing.")
         break
 
-    elif choice in {'n', 'e', 's', 'w'}:
-        if hasattr(player.current_room, f'{choice}_to'):
-            player.current_room = getattr(player.current_room, f'{choice}_to')
-        # else:
-        #     print("That direction is not an option at this time.")
-        #     continue
+    elif choice == 'p':
+        player.pickup_item()
+        player.print_inventory()
 
-    # If the user enters "q", quit the game.
+    elif choice in {'n', 'e', 's', 'w'}:
+        print(getattr(player.current_room, f'{choice}_to'))
+        if getattr(player.current_room, f'{choice}_to') is not None:
+            player.current_room = getattr(player.current_room, f'{choice}_to')
+        # if hasattr(player.current_room, f'{choice}_to'):
+        else:
+            print("\nThat direction is not an option at this time.\n")
+
 
 
 

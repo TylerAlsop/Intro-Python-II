@@ -38,3 +38,15 @@ class Room:
 # room1 = Room("Living Room", "This is where we relax and play games.")
 
 # print(room1)
+
+
+
+
+# Player = {
+#     name: Tyler,
+#     current_room: Room {
+#        items: []
+#     }
+# }
+
+# player.current_room.items.append()
