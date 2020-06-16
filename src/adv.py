@@ -102,6 +102,10 @@ while True:
             else:
                 print("\nThat direction is not an option at this time.\n")
 
+        elif choice in {'i', 'inventory'}:
+            print("Per your request, here is your inventory:")
+            player.print_inventory()
+
     if len(choice) == 2:
         command = choice[0]
         chosen_item = choice[1]
